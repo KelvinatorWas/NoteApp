@@ -2,10 +2,25 @@
 import '../style/note.css'
 import Note from './note';
 import { CreateNote, NoteType } from './noteFunc';
-import { ChangeEvent, useState } from 'react';
-
+import { ChangeEvent, useEffect, useState } from 'react';
 
 let currID = 0;
+let loadOnce = 0;
+
+
+const loadData = (setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>) => {
+  const localData = localStorage.getItem('notes');
+  // console.log('Local Data: ', localData);
+
+  if (localData && !loadOnce) {
+    const jsonData:NoteType[] = JSON.parse(localData);
+    const lastItem = jsonData[jsonData.length-1];
+    currID = lastItem ? lastItem.id : 0;
+    // console.log("data: ", jsonData)
+    setNotes(() => [...jsonData]);
+    loadOnce++;
+  }
+}
 
 export const NoteManager = () => {
 
@@ -14,8 +29,19 @@ export const NoteManager = () => {
   [string, React.Dispatch<React.SetStateAction<string>>], 
   [string, React.Dispatch<React.SetStateAction<string>>]] = [useState<NoteType[]>([]), useState(''), useState("")];
 
+
+  // loads the saved data
+  useEffect(() => {
+    loadData(setNotes);
+  }, [])
+
+  const saveData = () => {
+    // console.log('Saved Data')
+    // console.log(notes);
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }
+
   const saveNote = () => {
-    console.log("Hey the note is saved!")
     setNotes((prevState) => [
       ...prevState,
       {
@@ -28,7 +54,7 @@ export const NoteManager = () => {
     
     setNameInput('');
     setNoteTextInput('');
-    console.log(inputName)
+    saveData();
   }
 
   const inputHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,6 +69,9 @@ export const NoteManager = () => {
     setNotes(notes.filter((note) => note.id != id));
   }
   
+  useEffect(() => {
+    saveData()
+  }, [notes])
   return (
   // info
   // https://react.dev/learn/passing-props-to-a-component doc / info

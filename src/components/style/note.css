@@ -99,8 +99,9 @@
 
 .note__name {
   display: flex;
-  width: auto;
-  line-height: 10px;
+  width: max-content;
+  line-height: 12px;
+
 }
 
 .note__body {
