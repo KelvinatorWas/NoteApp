@@ -1,10 +1,12 @@
 import './App.css'
-
+import Header from './components/main/header';
+import { NoteManager } from './components/notes/noteManager';
 function App() {
 
   return (
    <div className='main'>
-    Hello World
+    <Header />
+    <NoteManager />
    </div> 
   );
 }

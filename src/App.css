@@ -1,10 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Barlow&display=swap');
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
 
 body {
@@ -12,4 +6,53 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Barlow';
+  justify-content: center;
+}
+
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.header__rect {
+  width: 1280px;
+  background-color:rgba(156, 0, 187, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+  border-radius: 15px 15px 0 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.326);
+}
+
+.notes {
+  display: grid;
+  max-width: 1280px;
+  margin: 0 auto;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+
+  background-color:rgba(34, 0, 187, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+  border-radius: 0 0 15px 15px;
+  border: 1.5px solid rgba(255, 255, 255, 0.326);
+  padding: 16px;
+
+}
+
+.notes__title {
+  color: white;
+  font-size: 38px;
+  font-family: "Barlow";
+  font-weight: bold;
+  padding-left: 16px;
 }
