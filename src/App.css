@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow&display=swap');
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+body {
+  background-image: url('./assets/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Barlow';
+}
