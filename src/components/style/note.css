@@ -1,5 +1,6 @@
 
 .note {
+  display: flex;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
   box-shadow: inset -6px -4px 2px rgba(255, 3, 3, 0.03);
@@ -7,11 +8,8 @@
   border: 2px solid rgba(184, 184, 184, 0.326);
   color: #fff;
   padding: 15px;
-  min-height: 240px;
-  display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
-  word-wrap: break-word;
 
   & textarea {
     white-space: pre-wrap;
@@ -32,9 +30,11 @@
 
 .note__header {
   display: flex;
-  margin-bottom:16px;
+  margin-top:16px;
   align-items: center;
   justify-content: space-between;
+  font-size: 18px;
+  font-weight: 200;
 }
 
 .note__footer {
@@ -49,6 +49,17 @@
   }
   75% {
     transform: scale(1.5) translateY(5px) rotateZ(60deg);
+  }
+  100% {
+  }
+}
+
+@keyframes rotate-shuffle {
+  35% {
+    transform: rotateZ(-30deg);
+  }
+  75% {
+    transform: rotateZ(30deg);
   }
   100% {
   }
@@ -79,10 +90,19 @@
     backdrop-filter: blur(5px);
     border: 1px solid rgb(46, 226, 0);
     color: rgb(255, 255, 255);
+
+    transform-origin: center;
+    animation-name: rotate-shuffle;
+    animation-duration: .5s;
   }
 }
 
 .note__name {
-  display: inline;
+  display: flex;
   width: auto;
+  line-height: 10px;
+}
+
+.note__body {
+  white-space: pre-line;
 }

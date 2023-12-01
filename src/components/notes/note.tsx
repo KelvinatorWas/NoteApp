@@ -1,12 +1,21 @@
 import { DeleteForever } from "@mui/icons-material";
-const Note = () => {
+
+type NoteType = {
+  id: number;
+  text: string;
+  name: string;
+  deleteNote: (id: number) => void;
+
+}
+
+const Note = ({ id, text, name, deleteNote }: NoteType) => {
   return (
     <div className="note">
       <div className="note__header">
-        <span style={{alignSelf:'flex-start'}}>Name</span>
-        <DeleteForever className="delete-note" aria-hidden='true'></DeleteForever>
+        <span style={{alignSelf:'flex-start'}}>{name}</span>
+        <DeleteForever className="delete-note" aria-hidden='true' onClick={()=>deleteNote(id)}></DeleteForever>
       </div>
-      <div className="note__body"></div>
+      <div className="note__body">{text}</div>
     </div>
   );
 }
