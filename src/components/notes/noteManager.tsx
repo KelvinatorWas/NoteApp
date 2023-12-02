@@ -7,6 +7,10 @@ import { ChangeEvent, useEffect, useState } from 'react';
 let currID = 0;
 let loadOnce = 0;
 
+type EditType = {
+  edit?:boolean;
+  id?: number;
+}
 
 const loadData = (setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>) => {
   const localData = localStorage.getItem('notes');
@@ -24,10 +28,11 @@ const loadData = (setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>) =>
 
 export const NoteManager = () => {
 
-  const [[notes, setNotes], [inputText, setNoteTextInput], [inputName, setNameInput]]: 
+  const [[notes, setNotes], [inputText, setNoteTextInput], [inputName, setNameInput], [editMode, setEditMode]]: 
   [[NoteType[],  React.Dispatch<React.SetStateAction<NoteType[]>>],
   [string, React.Dispatch<React.SetStateAction<string>>], 
-  [string, React.Dispatch<React.SetStateAction<string>>]] = [useState<NoteType[]>([]), useState(''), useState("")];
+  [string, React.Dispatch<React.SetStateAction<string>>],
+  [EditType, React.Dispatch<React.SetStateAction<EditType>>]] = [useState<NoteType[]>([]), useState(''), useState(""), useState({})];
 
 
   // loads the saved data
@@ -42,6 +47,8 @@ export const NoteManager = () => {
   }
 
   const saveNote = () => {
+    editMode.edit = false;
+
     setNotes((prevState) => [
       ...prevState,
       {
@@ -68,10 +75,25 @@ export const NoteManager = () => {
   const deleteNote = (id:number) => {
     setNotes(notes.filter((note) => note.id != id));
   }
+
+  const editNote = (id:number) => { // yeah its a cheat way
+    if (!editMode.edit) setEditMode({edit:true, id:id});
+    
+    const data = notes.find((note) => { return note.id === id ? note : null });
+    console.log("data: ",data)
+    if (data) {
+      deleteNote(id);
+
+      setNameInput(data.name);
+      setNoteTextInput(data.text);
+    }
+  }
   
   useEffect(() => {
     saveData()
   }, [notes])
+
+  console.log(editMode)
   return (
   // info
   // https://react.dev/learn/passing-props-to-a-component doc / info
@@ -83,6 +105,7 @@ export const NoteManager = () => {
         text = {note.text}
         name = {note.name}
         deleteNote = {deleteNote}
+        editNote = {editNote}
       />
       ))}
     <CreateNote

@@ -17,7 +17,7 @@ type Handler = {
 
 export const CreateNote = ({inputHandler, inputNameHandler, saveNote, inputText, inputName}: Handler) => {
   return (
-    <div className="note" style={{ background: "rgba(255, 255, 255, 0)" }}>
+    <div className="note" style={{ background: "rgba(100, 100, 100, .3)" }}>
       <textarea
         cols="9"
         rows="9"

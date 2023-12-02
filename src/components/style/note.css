@@ -10,6 +10,7 @@
   padding: 15px;
   flex-direction: column-reverse;
   justify-content: space-between;
+  min-height: 283px;
 
   & textarea {
     white-space: pre-wrap;
@@ -75,6 +76,16 @@
   }
 }
 
+.edit-note {
+  cursor: pointer;
+  
+  &:hover {
+    transform-origin: center;
+    animation-name: move-up-down-scale;
+    animation-duration: 1s;
+  }
+}
+
 .note__save-btn {
   background-color: transparent;
   transition: 0.2s ease-in-out;
@@ -95,6 +106,10 @@
     animation-name: rotate-shuffle;
     animation-duration: .5s;
   }
+  
+  &:focus {
+    outline: none;
+  }
 }
 
 .note__name {
@@ -106,4 +121,9 @@
 
 .note__body {
   white-space: pre-line;
+}
+
+.note__ud {
+  display: flex;
+  column-gap: 20px;
 }
